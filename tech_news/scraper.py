@@ -18,7 +18,7 @@ def fetch(url):
     except requests.RequestException as exception:
         print(f"Erro ao fazer requisição: {exception}")
         return None
-    
+
     finally:
         time.sleep(1)
 
@@ -51,13 +51,15 @@ def scrape_news(html_content):
     infos["title"] = selector.css(".entry-title::text").get().strip()
     infos["timestamp"] = selector.css(".meta-date::text").get()
     infos["writer"] = selector.css(".author a::text").get()
-    infos["reading_time"] = int(selector.css(".meta-reading-time::text").get().split()[0])
+    infos["reading_time"] = int(
+        selector.css(".meta-reading-time::text").get().split()[0])
     infos["summary"] = "".join(
         selector.css(".entry-content > p:first-of-type *::text").getall()
     ).strip()
     infos["category"] = selector.css(".category-style .label::text").get()
 
     return infos
+
 
 # Requisito 5
 def get_tech_news(amount):
@@ -74,5 +76,5 @@ def get_tech_news(amount):
                 break
         url = scrape_next_page_link(html)
     create_news(news)
-    
+
     return news
