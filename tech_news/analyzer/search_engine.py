@@ -12,12 +12,12 @@ def search_by_title(title):
 # Requisito 8
 def search_by_date(date):
     try:
-        date = datetime.strptime(date, "%Y-%m-%d")
+        date_iso = datetime.strptime(date, "%Y-%m-%d")
     except ValueError:
         raise ValueError("Data inválida")
 
-    new_date = date.strftime("%Y-%m-%d")
-    news_list = db.news.find({"timestamp": {"$regex": new_date}})
+    new_date = date_iso.strftime("%d/%m/%Y")
+    news_list = db.news.find({"timestamp": new_date})
     results = [(new["title"], new["url"]) for new in news_list]
     return results
 
