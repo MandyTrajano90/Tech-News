@@ -24,7 +24,8 @@ def test_reading_plan_group_news(mocker):
             },
         ]
     )
- # Test invalid parameter
+
+    # Test invalid parameter
     with pytest.raises(ValueError):
         ReadingPlanService.group_news_for_available_time(-1)
 
